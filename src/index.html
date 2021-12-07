@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Film Exhibition Fund</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no'>
+  <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
+  <script src='main.js'></script>
+</head>
+<body>
+  <div class="container" id="ar-target">
+    <div class="frame">
+      <a class="header" href="./index.html">
+        <div class="logo">
+          <img src="./assets/logo-h-9x.svg" />
+        </div>
+        <h1>
+          <span>FILM&nbsp;</span>
+          <span>EXHIBITION&nbsp;</span>
+          <span>FUND</span>
+        </h1>
+      </a>
+      <div role="button" class="menu-toggle" onclick="toggleMenu()">=</div>
+      <div class="nav-menu">
+        <div role="button" class="menu-toggle close" onclick="toggleMenu()">×</div>
+        <a href="./about.html">ABOUT</a>
+        <a href="./grants.html">GRANTS</a>
+        <a href="./stories.html">STORIES</a>
+        <a href="./donate.html">DONATE</a>
+        <a href="./contact.html">CONTACT</a>
+      </div>
+      <div class="ar-menu desktop">
+        <button onclick="changeAspectRatio(this.dataset.ar)" data-ar="133">1.33:1</button>
+        <button onclick="changeAspectRatio(this.dataset.ar)" data-ar="137">1.37:1</button>
+        <button onclick="changeAspectRatio(this.dataset.ar)" data-ar="166">1.66:1</button>
+        <button onclick="changeAspectRatio(this.dataset.ar)" data-ar="185">1.85:1</button>
+        <button onclick="changeAspectRatio(this.dataset.ar)" data-ar="235">2.35:1</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

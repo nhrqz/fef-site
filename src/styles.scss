@@ -1,0 +1,374 @@
+// colors
+$white: #e5e5e5;
+$black: #111;
+$blue-1: #00008f;
+$blue-2: #0000bf;
+$blue-3: #0000ff;
+
+$white50: adjust-color($color: $white, $alpha: -0.5);
+$white75: adjust-color($color: $white, $alpha: -0.25);
+
+$black50: adjust-color($color: $black, $alpha: -0.5);
+$black75: adjust-color($color: $black, $alpha: -0.25);
+
+:root {
+  --bg: #{$white};
+  --fg: #{$black};
+  --fg50: #{$black50};
+  --fg75: #{$black75};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #{$black};
+    --fg: #{$white};
+    --fg50: #{$white50};
+    --fg75: #{$white75};
+  }
+}
+
+$bg: var(--bg);
+$fg: var(--fg);
+$fg50: var(--fg50);
+$fg75: var(--fg75);
+
+// breakpoints
+$max-mobile-width: 768px;
+@mixin mobile {
+  @media (max-width: $max-mobile-width) {
+    @content;
+  }
+}
+
+
+
+// fonts 
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..400&display=block');
+$body: 'Inter', sans-serif;
+
+
+@font-face {
+  font-family: 'Aileron';
+  font-weight: 300;
+  src: url('./assets/fonts/Aileron-Light.otf') format('opentype');
+};
+@font-face {
+  font-family: 'Aileron';
+  font-weight: 300;
+  font-style: italic;
+  src: url('./assets/fonts/Aileron-LightItalic.otf') format('opentype');
+};
+@font-face {
+  font-family: 'Aileron';
+  font-weight: 200;
+  src: url('./assets/fonts/Aileron-Thin.otf') format('opentype');
+};
+@font-face {
+  font-family: 'Aileron';
+  font-weight: 200;
+  font-style: italic;
+  src: url('./assets/fonts/Aileron-ThinItalic.otf') format('opentype');
+};
+@font-face {
+  font-family: 'Compagnon';
+  font-weight: 400;
+  font-style: italic;
+  src: url('./assets/fonts/Compagnon-Italic.woff2') format('woff2');
+};
+@font-face {
+  font-family: 'Compagnon';
+  font-weight: 300;
+  font-style: normal;
+  src: url('./assets/fonts/Compagnon-Light.woff2') format('woff2');
+};
+@font-face {
+  font-family: 'Compagnon';
+  font-weight: 400;
+  font-style: normal;
+  src: url('./assets/fonts/Compagnon-Roman.woff2') format('woff2');
+};
+
+$heading: 'Aileron', sans-serif;
+// $body: 'Compagnon', sans-serif;
+// @import url('https://rsms.me/Archivo/inter.css');
+// $body: 'Inter', sans-serif;
+// @supports (font-variation-settings: normal) {
+//   $body: 'Inter var', sans-serif;
+// }
+
+
+// layout
+$edge-space: 48px;
+$edge-space-mobile: 24px;
+$border-radius: 15px;
+$border-radius-mobile: 11px;
+
+$aspect-ratios: (
+  "133": 1.333,
+  "137": 1.375,
+  "166": 1.666,
+  "185": 1.85,
+  "235": 2.35,
+);
+
+@mixin fontsize($size, $lineheight, $weight: null, $letterspacing: null) {
+  font-size: $size;
+  line-height: $lineheight;
+  font-weight: $weight;
+  letter-spacing: $letterspacing;
+}
+
+* {
+  box-sizing: border-box;
+  font-feature-settings: 'cv10';
+}
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+  font-family: $body;
+  overscroll-behavior: none;
+}
+
+body {
+  background-color: $bg;
+  min-height: 100vh;
+  overflow: hidden;
+  display: grid;
+  @include mobile {
+    overflow: unset;
+  }
+}
+
+.container {
+  place-self: center center;
+
+  width: calc(100vw - ($edge-space * 2));
+  height: calc((100vw - ($edge-space * 2)) / (16/9));
+  @media (min-aspect-ratio: 16/9) {
+    width: calc((100vh - ($edge-space * 2)) * (16/9));
+    height: calc(100vh - ($edge-space * 2));
+  }
+
+  @each $name, $ratio in $aspect-ratios {
+    &.ar-#{$name} {
+      width: calc(100vw - ($edge-space * 2));
+      height: calc((100vw - ($edge-space * 2)) / $ratio);
+      @media (min-aspect-ratio: #{$ratio * 1000}/1000) {
+        width: calc((100vh - ($edge-space * 2)) * $ratio);
+        height: calc(100vh - ($edge-space * 2));
+      }
+      [data-ar='#{$name}'] {
+        color: $fg;
+      }
+    }
+  }
+
+  @include mobile {
+    display: grid;
+    width: 100vw !important;
+    height: unset !important;
+    min-height: 100vh !important;
+    padding: $edge-space-mobile;
+  }
+
+  transition: width 0.4s ease-in-out,
+              height 0.4s ease-in-out;
+}
+
+.frame {
+  border-radius: $border-radius;
+  border: 1px solid $fg;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+}
+
+.header {
+  grid-area: 1/1/end/1;
+  position: relative;
+  top: -1px;
+  left: -1px;
+  display: flex;
+  align-items: center;
+  place-self: start;
+  text-decoration: none;
+  flex-wrap: wrap;
+  max-width: 450px;
+  h1 {
+    margin-left: 4px;
+    display: flex;
+    flex-basis: 150px;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    max-width: 280px;
+    justify-content: space-between;
+  }
+
+  @include mobile {
+    grid-area: 1/1/1/1;
+    max-width: 216px;
+  }
+}
+
+.logo {
+  width: fit-content;
+  background-color: $bg;
+  display: inline-block;
+  height: 94px;
+  margin-bottom: 2px;
+  
+  @include mobile {
+    height: 72px;
+    &>img {
+      width: 216px;
+    }
+  }
+}
+
+h1, h2 {
+  margin: 0px;
+  font-family: $heading;
+  display: inline-block;
+  color: $fg;
+  @include fontsize(26px, 30px, 200, -1px);
+  @include mobile {
+    @include fontsize(20px, 24px, 200, -1px);
+  }
+}
+
+.ar-menu {
+  grid-area: 2 / 1 / end / end;
+  place-self: end end;
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+  margin-right: $border-radius;
+  button {
+    // font-feature-settings: "tnum";
+    margin-inline-start: 4px;
+    padding: 2px;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: $fg50;
+    transition: color 0.2s ease-in-out;
+    font-family: $body;
+    &:hover {
+      color: $fg75;
+    }
+  }
+}
+
+.menu-toggle {
+  display: none;
+  @include mobile {
+    appearance: none;
+    display: block;
+    @include fontsize(40px, 0.5, 100);
+    color: $fg;
+    place-self: start end;
+    margin: 8px;
+    grid-area: 1/1/end/end;
+  }
+}
+
+.nav-menu {
+  grid-area: 1/1/end/end;
+  place-self: end start;
+  display: flex;
+  flex-direction: column;
+  margin: 16px;
+  a {
+    color: $fg50;
+    text-decoration: none;
+    margin-block-start: 8px;
+    font-family: $heading;
+    @include fontsize(18px, 1, 300, -0.5px);
+    transition: color 0.2s ease-in-out;
+    &:hover {
+      color: $fg75;
+    }
+    &.active {
+      color: $fg;
+    }
+  }
+  @include mobile {
+    display: flex;
+    opacity: 0;
+    z-index: -100;
+    height: 0px;
+    transition: height 0s, opacity 0.2s ease-in-out;
+    overflow: hidden;
+    margin: 0px;
+    &.visible {
+      opacity: 1;
+      // display: flex;
+      place-self: start start;
+      background-color: $bg;
+      z-index: 100;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      padding: $edge-space-mobile;
+      padding-left: $edge-space-mobile * 2;
+      top: 0px;
+      left: 0px;
+      .close {
+        place-self: end start;
+        margin-bottom: $edge-space-mobile;
+      }
+    }
+  }
+}
+
+.content {
+  grid-area: 1/2/1/end;
+  display: grid;
+  padding: 16px;
+  grid-template-rows: auto auto 1fr;
+  overflow-y: scroll;
+  @include mobile {
+    grid-area: 2/1/end/end;
+    margin-top: $edge-space-mobile;
+  }
+}
+
+// .crown {
+//   height: $border-radius * 2;
+//   // width: $border-radius * 2;
+//   border-radius: $border-radius;
+//   background-color: $blue-2;
+// }
+
+h2 {
+  @include fontsize(32px, 1, 200, -1px)
+}
+
+.body {
+  margin-top: 16px;
+  a {
+    color: $fg;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+p {
+  color: $fg75;
+  font-family: $body;
+  @include fontsize(14px, 1.5)
+}
+
+// mobile 
+
+.desktop {
+  @include mobile {
+    display: none;
+  }
+}
