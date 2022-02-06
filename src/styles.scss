@@ -133,6 +133,7 @@ html, body {
 
 body {
   background-color: $bg;
+  color: $fg75;
   min-height: 100vh;
   overflow: hidden;
   display: grid;
@@ -365,6 +366,51 @@ p {
   @include fontsize(14px, 1.5)
 }
 
+form {
+  label {
+    @include fontsize(14px, 1.5);
+    display: block;
+    margin-bottom: 4px;
+  }
+  input, textarea {
+    @include fontsize(14px, 1.5);
+    font-family: $body;
+    margin-bottom: 12px;
+    appearance: none;
+    background-color: $bg;
+    color: $fg;
+    border: 1px solid $fg50;
+    border-radius: 4px;
+    padding: 4px 8px;
+    outline: none;
+  }
+  input[type="submit"] {
+    font-family: $heading;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    color: $fg75;
+    border-color: $fg75;
+    transition: color 0.2s ease-in-out,
+                border-color 0.2s ease-in-out;
+    &:hover {
+      color: $fg;
+      border-color: $fg;
+      cursor: pointer;
+    }
+  }
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 80%;
+    @include mobile() {
+      width: 100%;
+    }
+  }
+  textarea {
+    resize: vertical;
+  }
+}
+
 // mobile 
 
 .desktop {
@@ -372,3 +418,4 @@ p {
     display: none;
   }
 }
+
