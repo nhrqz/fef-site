@@ -68,6 +68,7 @@ html, body {
 
 body {
   background-color: var(--bg);
+  color: var(--fg75);
   min-height: 100vh;
   overflow: hidden;
   display: grid;
@@ -367,6 +368,54 @@ p {
   font-family: "Inter", sans-serif;
   font-size: 14px;
   line-height: 1.5;
+}
+
+form label {
+  font-size: 14px;
+  line-height: 1.5;
+  display: block;
+  margin-bottom: 4px;
+}
+form input, form textarea {
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 12px;
+  appearance: none;
+  background-color: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--fg50);
+  border-radius: 4px;
+  padding: 4px 8px;
+  outline: none;
+}
+form input[type=submit] {
+  font-family: "Aileron", sans-serif;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  color: var(--fg75);
+  border-color: var(--fg75);
+  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+form input[type=submit]:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+  cursor: pointer;
+}
+form input[type=text],
+form input[type=email],
+form textarea {
+  width: 80%;
+}
+@media (max-width: 768px) {
+  form input[type=text],
+form input[type=email],
+form textarea {
+    width: 100%;
+  }
+}
+form textarea {
+  resize: vertical;
 }
 
 @media (max-width: 768px) {
